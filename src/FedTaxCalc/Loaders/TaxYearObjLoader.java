@@ -11,7 +11,13 @@ import java.util.EnumMap;
  *
  * @author Ramin
  */
-public class TaxYearObjLoader {    
+public class TaxYearObjLoader { 
+    /**
+     * 
+     * @param y
+     * @param pathdir
+     * @return 
+     */
     public TaxYear LoadYear(int y, String pathdir) {
         EnumMap<FilingType, TaxYearFilingType> YearFilings;
         YearFilings = new EnumMap<>(FilingType.class);

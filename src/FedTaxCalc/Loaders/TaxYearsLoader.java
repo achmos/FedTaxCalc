@@ -10,6 +10,10 @@ import java.util.HashMap;
  * @author Ramin
  */
 public class TaxYearsLoader {
+    /**
+     * 
+     * @return 
+     */
     public HashMap<Integer,TaxYear> loadYears() {
         TaxYear NewYear;
         HashMap<Integer,TaxYear> years = new HashMap<>();
