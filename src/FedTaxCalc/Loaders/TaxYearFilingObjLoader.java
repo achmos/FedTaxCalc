@@ -8,11 +8,12 @@ import java.util.ArrayList;
 
 public class TaxYearFilingObjLoader {
     /**
-     * 
-     * @param filename
-     * @return 
+     * Loads the tax brackets for a particular year and tax filing type. 
+     * @param filename String name of the file that contains the tax information 
+     * needed. 
+     * @return A TaxYearFilingType object with the necessary bracket information
      */
-    public static TaxYearFilingType LoadYearFiling(String filename) {
+    public static TaxYearFilingType LoadYearFilingType(String filename) {
         BufferedReader Yearfile;
         TaxYearFilingType filing = null;
         ArrayList<Integer> brackets = new ArrayList<>();
@@ -25,13 +26,17 @@ public class TaxYearFilingObjLoader {
             
             while (Yearfile.ready()) {
                 line = Yearfile.readLine();
+                //parse the line into its two parts
                 String brak[] = line.split(Delim);
+                
+                //lower limit of bracket is first, percentage is second. 
                 brackets.add(Integer.valueOf(brak[1]));
                 percents.add(Float.valueOf(brak[0]));
             }
                 
             filing = new TaxYearFilingType(brackets, percents);
         } catch (IOException ex) {
+            //FIX: change to a logger? 
             System.err.println(ex.getMessage());
         }
         

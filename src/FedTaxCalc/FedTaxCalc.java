@@ -4,7 +4,8 @@ import FedTaxCalc.Loaders.TaxYearsLoader;
 import java.util.HashMap;
 
 /**
- *
+ * A tac calculator object that return the amount of U.S Federal Income tax that
+ * must be paid on a certain amount of taxable income. 
  * @author Ramin
  */
 public class FedTaxCalc {
@@ -17,8 +18,8 @@ public class FedTaxCalc {
      * Create a new FedTaxCalc object which can be used to calculate taxes. 
      */
     public FedTaxCalc() {
-        TaxYearsLoader yearsloader = new TaxYearsLoader();
-        TaxableYears = yearsloader.loadYears(); 
+        TaxableYears = TaxYearsLoader.loadYears(); 
+        //FATAL: couldn't load any years, stop executing...
     }
     
     /**
@@ -37,9 +38,7 @@ public class FedTaxCalc {
         currentYear = TaxableYears.get(year);
         
         if (currentYear == null) {
-            int size = TaxableYears.size();
-            TaxYear[] yearArr = TaxableYears.values().toArray(new TaxYear[0]) ;
-            currentYear = yearArr[size - 1];
+            currentYear = TaxableYears.values().iterator().next();
             //throw exception to notify user/something
         }
     }
@@ -53,23 +52,25 @@ public class FedTaxCalc {
     }
     
     /**
-     * 
-     * @param income 
+     * Sets the taxable income that taxes will be calculated from. 
+     * @param income amount of income that is to be taxed on. 
      */
     public void setTaxableIncome(double income) {
         TaxableIncome = income;
     }
     
     /**
-     * 
-     * @return 
+     * Calculate taxes for the currently set year and filing status. 
+     * @return a double representing the taxes to be paid. 
      */
     public double calcTaxes() {
+        double taxes;
         if (FilingStatus == null) {
             //FIX: throw an exception if the filing status or year is not set!
-            return -1.0;
+            taxes = -1.0;
         } else {
-            return currentYear.CalculateTaxes(FilingStatus, TaxableIncome);
+            taxes = currentYear.CalculateTaxes(FilingStatus, TaxableIncome);
         }
+        return taxes;
     }
 }

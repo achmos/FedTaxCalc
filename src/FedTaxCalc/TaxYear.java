@@ -12,14 +12,6 @@ public class TaxYear {
     private EnumMap<FilingType, TaxYearFilingType> FilingTypes;
     
     /**
-     * Returns the Year this TaxYear object represents.
-     * @return the integer representation of the year. 
-     */
-    public int getYear() {
-        return year;
-    }
-    
-    /**
      * Create a new TaxYear Object for the given year with the tax filing types 
      * in the EnumMap.
      * @param year The year to represent
@@ -32,6 +24,14 @@ public class TaxYear {
     }
     
     /**
+     * Returns the Year this TaxYear object represents.
+     * @return the integer representation of the year. 
+     */
+    public int getYear() {
+        return year;
+    }
+    
+    /**
      * Calculates the taxes for this year given the FilingType and the taxable 
      * income. 
      * @param FilingStatus the enum type of FilingType to use.
@@ -39,6 +39,7 @@ public class TaxYear {
      * @return The amount of taxes that must be paid this year.s 
      */
     public double CalculateTaxes(FilingType FilingStatus, double TaxableIncome) {
+        //FIX: error if filingstatus is not there.
         TaxYearFilingType TaxFilingType = FilingTypes.get(FilingStatus);
         return TaxFilingType.CalculateTaxes(TaxableIncome);
     }

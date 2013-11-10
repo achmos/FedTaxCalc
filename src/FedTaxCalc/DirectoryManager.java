@@ -29,7 +29,7 @@ public class DirectoryManager {
             stream = Files.newDirectoryStream(dir);
             itr = stream.iterator();
         } catch (IOException ex) {
-            //FIX: if not command line program, what happens here?
+            //FIX: if not command line program, what happens here? a logger? 
             System.err.println(ex.getMessage());
         }
     }

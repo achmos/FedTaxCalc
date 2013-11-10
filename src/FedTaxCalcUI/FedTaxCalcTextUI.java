@@ -4,7 +4,7 @@ import FedTaxCalc.FilingType;
 import java.util.Scanner;
 
 /**
- *
+ * A simple text based user interface to the federal tax calculator. 
  * @author Ramin
  */
 public class FedTaxCalcTextUI {
