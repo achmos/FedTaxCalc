@@ -16,7 +16,8 @@ public class TaxYearObjLoader {
      * Loads a tax year object given the integer year and the directory path.
      * @param year the year that is being loaded. 
      * @param pathdir string that is the path to the year's data on the disk.
-     * @return a tax year object with all the tax data loaded. 
+     * @return a tax year object with all the tax data loaded, or null if no 
+     * data could be found for the year provided.
      */
     public static TaxYear LoadYear(int year, String pathdir) {
         TaxYear newYear;
@@ -38,8 +39,11 @@ public class TaxYearObjLoader {
             String type = filename.substring( i + 1 , j );
             YearFilings.put(FilingType.valueOf(type), NewYearFiling);
         }
-        
-        newYear = new TaxYear(year, YearFilings);
-        return newYear;
+        if (!YearFilings.isEmpty()) {
+            newYear = new TaxYear(year, YearFilings);
+            return newYear;
+        } else {
+            return null;
+        }
     } 
 }

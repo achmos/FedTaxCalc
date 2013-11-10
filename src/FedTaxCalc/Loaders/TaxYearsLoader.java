@@ -13,7 +13,9 @@ import java.util.HashMap;
 public class TaxYearsLoader {
     /**
      * Loads all the TaxYears and returns them to the caller.
-     * @return A hashmap of integers year to TaxYear objects. 
+     * @return A hashmap of integers year to TaxYear objects that were 
+     * successfully loaded. May be empty if none of the year were loaded 
+     * correctly. 
      */
     public static HashMap<Integer,TaxYear> loadYears() {
         TaxYear NewYear;
@@ -35,7 +37,9 @@ public class TaxYearsLoader {
             
             //load a new TaxYear obj and add it to the hashmap by year.
             NewYear = TaxYearObjLoader.LoadYear(year, entry.toString());
-            years.put(year, NewYear);
+            
+            if (NewYear != null)
+                years.put(year, NewYear);
         }
         
         return years;

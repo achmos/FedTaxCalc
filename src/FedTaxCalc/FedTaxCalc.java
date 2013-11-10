@@ -1,16 +1,17 @@
 package FedTaxCalc;
 
+import FedTaxCalc.Exceptions.TaxCalculatorException;
+import FedTaxCalc.Exceptions.TaxDataLoadFailException;
 import FedTaxCalc.Loaders.TaxYearsLoader;
 import java.util.HashMap;
 
 /**
- * A tac calculator object that return the amount of U.S Federal Income tax that
+ * A tax calculator object that return the amount of U.S Federal Income tax that
  * must be paid on a certain amount of taxable income. 
  * @author Ramin
  */
 public class FedTaxCalc {
     FilingType FilingStatus;
-    double TaxableIncome;
     TaxYear currentYear;
     HashMap<Integer,TaxYear> TaxableYears;
     
@@ -19,7 +20,9 @@ public class FedTaxCalc {
      */
     public FedTaxCalc() {
         TaxableYears = TaxYearsLoader.loadYears(); 
-        //FATAL: couldn't load any years, stop executing...
+        if (TaxableYears.isEmpty()) {
+            throw new TaxDataLoadFailException("No tax data found!");
+        }
     }
     
     /**
@@ -34,12 +37,14 @@ public class FedTaxCalc {
      * Set the year to calculate taxes for. 
      * @param year The integer representation of the year to use. 
      */
-    public void setTaxYear(int year) {
+    public void setTaxYear(int year) throws TaxCalculatorException {
         currentYear = TaxableYears.get(year);
         
         if (currentYear == null) {
             currentYear = TaxableYears.values().iterator().next();
-            //throw exception to notify user/something
+            String msg = String.format("Year %d's data could not be found, using %d instead.",
+                    year, currentYear.getYear());
+            throw new TaxCalculatorException(msg);
         }
     }
     
@@ -50,24 +55,20 @@ public class FedTaxCalc {
     public int getTaxYear() {
         return currentYear.getYear();
     }
-    
-    /**
-     * Sets the taxable income that taxes will be calculated from. 
-     * @param income amount of income that is to be taxed on. 
-     */
-    public void setTaxableIncome(double income) {
-        TaxableIncome = income;
-    }
-    
+        
     /**
      * Calculate taxes for the currently set year and filing status. 
      * @return a double representing the taxes to be paid. 
+     * @throws TaxCalculatorException Thrown if the year or filing status is not set. 
      */
-    public double calcTaxes() {
+    public double calcTaxes(double TaxableIncome) throws TaxCalculatorException {
         double taxes;
         if (FilingStatus == null) {
-            //FIX: throw an exception if the filing status or year is not set!
-            taxes = -1.0;
+            String msg = String.format("Filing status not set!");
+            throw new TaxCalculatorException(msg);
+        } else if (currentYear == null) {
+            String msg = String.format("Tax year not set!");
+            throw new TaxCalculatorException(msg);
         } else {
             taxes = currentYear.CalculateTaxes(FilingStatus, TaxableIncome);
         }

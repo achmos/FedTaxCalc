@@ -1,4 +1,5 @@
 package FedTaxCalcUI;
+import FedTaxCalc.Exceptions.TaxCalculatorException;
 import FedTaxCalc.FedTaxCalc;
 import FedTaxCalc.FilingType;
 import java.util.Scanner;
@@ -21,7 +22,12 @@ public class FedTaxCalcTextUI {
         do {
             System.out.printf("\nPlease enter a tax year: ");
             year = sc.nextInt();
-            calculator.setTaxYear(year);
+            
+            try {
+                calculator.setTaxYear(year);
+            } catch (TaxCalculatorException ex) {
+                System.out.println(ex.getMessage());
+            }
             
             do {
                 System.out.println("\nPlease enter a filing type: ");
@@ -48,10 +54,13 @@ public class FedTaxCalcTextUI {
             
             System.out.printf("\nPlease enter your taxable income for the year entered: ");
             income = sc.nextDouble();
-            calculator.setTaxableIncome(income);
             
-            taxes = calculator.calcTaxes();
-            System.out.printf("\nYour taxes for the year %d with an income of %f is %f\n", year, income, taxes);
+            try {
+                taxes = calculator.calcTaxes(income);
+                System.out.printf("\nYour taxes for the year %d with an income of %f is %f\n", year, income, taxes);
+            } catch (TaxCalculatorException ex) {
+                System.out.println(ex.getMessage());
+            }
             
             System.out.printf("\nPress \'Q\' followed by enter to quit or any other key to continue.\n>:");
             choice = sc.next().charAt(0);
