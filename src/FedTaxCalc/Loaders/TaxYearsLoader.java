@@ -1,6 +1,5 @@
 package FedTaxCalc.Loaders;
 
-import FedTaxCalc.DirectoryManager;
 import FedTaxCalc.TaxYear;
 import java.nio.file.Path;
 import java.util.HashMap;

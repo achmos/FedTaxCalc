@@ -1,6 +1,6 @@
 package FedTaxCalc;
 
-import FedTaxCalc.Exceptions.TaxCalculatorException;
+import FedTaxCalc.Exceptions.TaxDataLoadFailException;
 import java.util.EnumMap;
 
 /**
@@ -38,18 +38,16 @@ public class TaxYear {
      * @param FilingStatus the enum type of FilingType to use.
      * @param TaxableIncome The amount of taxable income for this year. 
      * @return The amount of taxes that must be paid this year.s 
-     * @throws TaxCalculatorException Thrown if the filing type data could not be found.
+     * @throws TaxDataLoadFailException Thrown if the filing type data could not be found.
      */
-    public double CalculateTaxes(FilingType FilingStatus, double TaxableIncome) throws TaxCalculatorException {
+    public double CalculateTaxes(FilingType FilingStatus, double TaxableIncome) {
         if (FilingTypes.containsKey(FilingStatus)) {
             TaxYearFilingType TaxFilingType = FilingTypes.get(FilingStatus);
             return TaxFilingType.CalculateTaxes(TaxableIncome);
         } else {
-            String msg = String.format("Data for %s filing type for %d could not be found!" +
-                    "Select another filing type, or reload the application to attempt a fix." +
-                    "Otherwise see our support for more help.", 
+            String msg = String.format("Data for %s filing type for %d could not be found!",
                     FilingStatus.name(), this.year);
-            throw new TaxCalculatorException(msg);
+            throw new TaxDataLoadFailException(msg);
         }
     }
 }

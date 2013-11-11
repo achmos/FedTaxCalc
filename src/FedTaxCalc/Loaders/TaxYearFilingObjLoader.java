@@ -6,7 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class TaxYearFilingObjLoader {
+class TaxYearFilingObjLoader {
     /**
      * Loads the tax brackets for a particular year and tax filing type. 
      * @param filename String name of the file that contains the tax information 

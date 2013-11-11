@@ -1,4 +1,4 @@
-package FedTaxCalc;
+package FedTaxCalc.Loaders;
 
 import java.io.IOException;
 import java.nio.file.DirectoryStream;
@@ -12,7 +12,7 @@ import java.util.Iterator;
  * directories. 
  * @author Ramin
  */
-public class DirectoryManager {
+class DirectoryManager {
     private DirectoryStream<Path> stream;
     private Iterator<Path> itr;
     

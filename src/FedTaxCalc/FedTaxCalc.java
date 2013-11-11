@@ -1,6 +1,7 @@
 package FedTaxCalc;
 
 import FedTaxCalc.Exceptions.TaxCalculatorException;
+import FedTaxCalc.Exceptions.TaxCalculatorYearException;
 import FedTaxCalc.Exceptions.TaxDataLoadFailException;
 import FedTaxCalc.Loaders.TaxYearsLoader;
 import java.util.HashMap;
@@ -37,14 +38,14 @@ public class FedTaxCalc {
      * Set the year to calculate taxes for. 
      * @param year The integer representation of the year to use. 
      */
-    public void setTaxYear(int year) throws TaxCalculatorException {
+    public void setTaxYear(int year) throws TaxCalculatorYearException {
         currentYear = TaxableYears.get(year);
         
         if (currentYear == null) {
             currentYear = TaxableYears.values().iterator().next();
             String msg = String.format("Year %d's data could not be found, using %d instead.",
                     year, currentYear.getYear());
-            throw new TaxCalculatorException(msg);
+            throw new TaxCalculatorYearException(msg, currentYear.getYear());
         }
     }
     
@@ -54,6 +55,14 @@ public class FedTaxCalc {
      */
     public int getTaxYear() {
         return currentYear.getYear();
+    }
+    
+    /**
+     * Get the current filing type that is set on the calculator.
+     * @return the enum constant that represent the current filing type
+     */
+    public FilingType getFilingType() {
+        return FilingStatus;
     }
         
     /**

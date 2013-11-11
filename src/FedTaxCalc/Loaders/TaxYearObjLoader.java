@@ -1,6 +1,5 @@
 package FedTaxCalc.Loaders;
 
-import FedTaxCalc.DirectoryManager;
 import FedTaxCalc.FilingType;
 import FedTaxCalc.TaxYear;
 import FedTaxCalc.TaxYearFilingType;
@@ -11,7 +10,7 @@ import java.util.EnumMap;
  * A loader class that loads a single tax year's information for runtime use. 
  * @author Ramin
  */
-public class TaxYearObjLoader { 
+class TaxYearObjLoader { 
     /**
      * Loads a tax year object given the integer year and the directory path.
      * @param year the year that is being loaded. 
