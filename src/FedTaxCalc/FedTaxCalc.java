@@ -4,7 +4,9 @@ import FedTaxCalc.Exceptions.TaxCalculatorException;
 import FedTaxCalc.Exceptions.TaxCalculatorYearException;
 import FedTaxCalc.Exceptions.TaxDataLoadFailException;
 import FedTaxCalc.Loaders.TaxYearsLoader;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * A tax calculator object that return the amount of U.S Federal Income tax that
@@ -24,6 +26,14 @@ public class FedTaxCalc {
         if (TaxableYears.isEmpty()) {
             throw new TaxDataLoadFailException("No tax data found!");
         }
+    }
+    
+    /**
+     * 
+     * @return 
+     */
+    public List<Integer> getYears() {
+        return new ArrayList<> (TaxableYears.keySet());
     }
     
     /**
