@@ -12,6 +12,6 @@ public class TaxDataLoadFailException extends RuntimeException {
      * @param message message about the exception
      */
     public TaxDataLoadFailException(String message) {
-        super("Tax data load fail:" + message);
+        super("Tax data load fail: " + message);
     }
 }

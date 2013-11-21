@@ -45,7 +45,6 @@ public class taxGUI extends javax.swing.JFrame {
         jFormattedTextField2 = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Tax Calculator");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(taxCalculator.getYears().toArray(new Integer [0])));
         jComboBox1.setSelectedIndex(-1);
